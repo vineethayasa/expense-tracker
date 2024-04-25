@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Signin = ({ onSigninSuccess }) => {
-  // Form data states for email and password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  // States for error and success messages
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Handle changes in form inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'email') {
@@ -21,9 +17,8 @@ const Signin = ({ onSigninSuccess }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form behavior
+    e.preventDefault();
     
-    // Basic validation: Ensure email and password are provided
     if (!email || !password) {
       setError('Email and password are required');
       return;
@@ -35,47 +30,53 @@ const Signin = ({ onSigninSuccess }) => {
         password,
       });
 
-      // If successful, trigger success callback and reset the form
-      setSuccessMessage('signin successful!');
+      setSuccessMessage('Signin successful!');
       setError('');
       setEmail('');
       setPassword('');
 
       if (onSigninSuccess) {
-        onSigninSuccess(response.data); // Pass the response data (e.g., a token) to the parent component
+        onSigninSuccess(response.data);
       }
     } catch (error) {
-      setError(error.response?.data?.message || 'signin failed. Please try again.');
+      setError(error.response?.data?.message || 'Signin failed. Please try again.');
     }
   };
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+    <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Sign In</h2>
+      {error && <p className="text-red-600 mb-4">{error}</p>}
+      {successMessage && <p className="text-green-600 mb-4">{successMessage}</p>}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">Email:</label>
           <input
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
             required
+            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline"
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">Password:</label>
           <input
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
             required
+            className="w-full border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline"
           />
         </div>
-        <button type="submit">Sign In</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+        >
+          Sign In
+        </button>
       </form>
     </div>
   );

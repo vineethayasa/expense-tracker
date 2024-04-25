@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ExpenseList from './components/Expense/ExpenseList.js';
-import NewExpense from './components/Expense/NewExpense.js';
+import Expense from './components/Expense/Expense.js';
 import IncomeList from './components/Income/IncomeList.js';
 import NewIncome from './components/Income/NewIncome.js';
 import Signup from './components/signup.js';
@@ -13,11 +12,10 @@ function App() {
   return (
     <Router>
       <div>
-        <Signup/>
 
         <Routes>
           <Route path="/expenses" element={<ExpenseList />} />
-          <Route path="/newexpense" element={<NewExpense />} />
+          <Route path="/expense" element={<Expense />} />
           <Route path="/incomes" element={<IncomeList />} />
           <Route path="/newincome" element={<NewIncome />} /> 
           <Route path="/signup" element={<Signup />} />
