@@ -7,7 +7,7 @@ const NewExpense = ({ onExpenseAdded, userId}) => {
   const [date, setDate] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form behavior
+    e.preventDefault(); 
 
     // Create a new expense object
     const newExpense = {
@@ -25,12 +25,10 @@ const NewExpense = ({ onExpenseAdded, userId}) => {
         newExpense
       );
 
-      // Notify parent component about the new expense
       if (onExpenseAdded) {
         onExpenseAdded(response.data);
       }
 
-      // Clear input fields
       setHead("");
       setAmount("");
       setDate("");
