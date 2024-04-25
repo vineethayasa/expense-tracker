@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from './navbar.js';
+import Newnav from './newnav.js';
 import { useNavigate } from 'react-router-dom';
 
 const Signin = ({ onSigninSuccess }) => {
@@ -39,6 +39,7 @@ const Signin = ({ onSigninSuccess }) => {
       setPassword('');
 
       const { userId } = response.data;
+      console.log("here",response.data);
 
       navigate('/expenses', {
         state: { userId },
@@ -56,7 +57,7 @@ const Signin = ({ onSigninSuccess }) => {
 
   return (
     <div>
-      <Navbar />
+      <Newnav />
       <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow-lg mt-16">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Sign In</h2>
         {error && <p className="text-red-600 mb-4">{error}</p>}

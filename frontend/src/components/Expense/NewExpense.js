@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const NewExpense = ({ onExpenseAdded }) => {
+const NewExpense = ({ onExpenseAdded, userId}) => {
   const [head, setHead] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -14,7 +14,10 @@ const NewExpense = ({ onExpenseAdded }) => {
       expense_date: date,
       expense_amount: parseFloat(amount),
       expense_head: head,
+      userId
     };
+
+    console.log(newExpense);
 
     try {
       const response = await axios.post(

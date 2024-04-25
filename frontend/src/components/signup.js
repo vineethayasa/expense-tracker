@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from './navbar';
+import Newnav from './newnav';
 
 const Signup = () => {
   // Initial state for form fields
@@ -51,7 +51,12 @@ const Signup = () => {
       });
       console.log(response);
 
-      navigate("/expenselist");
+      const userId = response.data.id;
+      console.log("here",response.data);
+
+      navigate('/expenses', {
+        state: { userId },
+      });
 
       // If successful, display success message and reset form
       setSuccessMessage("Signup successful! Welcome!");
@@ -72,7 +77,7 @@ const Signup = () => {
 
   return (
     <div>
-      <Navbar />
+      <Newnav />
       <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow-lg mt-16">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Signup</h2>
       {error && (

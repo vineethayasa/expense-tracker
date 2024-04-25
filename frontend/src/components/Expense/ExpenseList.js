@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback} from "react";
 import axios from "axios";
 
-const ExpenseList = ({ refreshTrigger }) => {
+const ExpenseList = ({ refreshTrigger, userId}) => {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchExpenses = async () => {
+  const fetchExpenses = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:1854/expenses");
+      const response = await axios.get(`http://localhost:1854/expenses/${userId}`);
       setExpenses(response.data);
     } catch (err) {
       setError("Error fetching expenses");
     } finally {
       setLoading(false);
     }
-  };
-
+  }, [userId]);
+  
   useEffect(() => {
     fetchExpenses();
-  }, [refreshTrigger]);
+  }, [refreshTrigger, fetchExpenses]);
 
   // Handle delete expense
   const handleDelete = async (id) => {

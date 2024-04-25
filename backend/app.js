@@ -41,13 +41,13 @@ app.use(
 // Create a new user
 app.post("/signup", async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
-  console.log(firstname, lastname, email, password);
+  console.log("nnn",firstname, lastname, email, password);
   if (!firstname || !lastname || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.getUserByEmail(email);
     if (existingUser) {
       return res.status(409).json({ error: "Email already in use" });
     }
@@ -82,22 +82,13 @@ app.post('/signin', async (req, res) => {
     // Create a session for the authenticated user
     req.session.userId = user.id;
     console.log(req.session.userId);
-    res.status(200).json({ message: 'Sign-in successful' });
+    res.status(200).json({ message: 'Sign-in successful',userId:user.id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Fetch session information
-app.get('/session-info', (req, res) => {
-  // if (req.session.userId) {
-  //   res.status(200).json({ userId: req.session.userId });
-  // } else {
-  //   res.status(401).json({ message: 'Not authenticated' });
-  // }
-  console.log(req.session.userId);
-});
 
 // Create a new expense
 app.post('/expenses', async (req, res) => {
@@ -106,23 +97,29 @@ app.post('/expenses', async (req, res) => {
       expense_head:req.body.expense_head,
       expense_date:req.body.expense_date,
       expense_amount:req.body.expense_amount,
+      userId:req.body.userId
     });
-    console.log("here",req);
+    console.log("chek here",expense);
     res.status(201).json(expense);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-// Get all expenses
-app.get('/expenses', async (req, res) => {
+app.get('/expenses/:userId', async (req, res) => {
+  const { userId } = req.params; // Extract userId from path parameters
+
   try {
-    const expenses = await Expense.findAll();
+    const expenses = await Expense.findAll({
+      where: { userId }, // Filter by userId
+    });
+
     res.status(200).json(expenses);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Update an expense
 app.put('/expenses/:id', async (req, res) => {
@@ -157,62 +154,4 @@ app.delete('/expenses/:id', async (req, res) => {
   }
 });
 
-// Create new income
-app.post('/incomes', async (req, res) => {
-  try {
-    const income = await Income.addIncome({
-      Income_head:req.body.income_head,
-      Income_amount:req.body.income_amount,
-      Income_date:req.body.income_date,
-    });
-    res.status(201).json(income);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-// Get all incomes
-app.get('/incomes', async (req, res) => {
-  try {
-    const incomes = await Income.findAll();
-    res.status(200).json(incomes);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Update income
-app.put('/incomes/:id', async (req, res) => {
-  try {
-    const [updated] = await Income.update(req.body, {
-      where: { id: req.params.id }
-    });
-    if (updated) {
-      const updatedIncome = await Income.findOne({ where: { id: req.params.id } });
-      res.status(200).json(updatedIncome);
-    } else {
-      res.status(404).json({ error: 'Income not found' });
-    }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-// Delete income
-app.delete('/incomes/:id', async (req, res) => {
-  try {
-    const deleted = await Income.destroy({
-      where: { id: req.params.id }
-    });
-    if (deleted) {
-      res.status(204).send();
-    } else {
-      res.status(404).json({ error: 'Income not found' });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
 module.exports = app;
-
