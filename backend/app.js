@@ -4,7 +4,7 @@ const { request, response } = require("express");
 const express = require("express");
 const app = express();
 
-const { User, Income , Expense } = require("./models");
+const { User , Expense } = require("./models");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -121,23 +121,6 @@ app.get('/expenses/:userId', async (req, res) => {
 });
 
 
-// Update an expense
-app.put('/expenses/:id', async (req, res) => {
-  try {
-    const [updated] = await Expense.update(req.body, {
-      where: { id: req.params.id }
-    });
-    if (updated) {
-      const updatedExpense = await Expense.findOne({ where: { id: req.params.id } });
-      res.status(200).json(updatedExpense);
-    } else {
-      res.status(404).json({ error: 'Expense not found' });
-    }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
 // Delete an expense
 app.delete('/expenses/:id', async (req, res) => {
   try {
@@ -151,6 +134,50 @@ app.delete('/expenses/:id', async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Path parameter endpoint for expense reports
+app.get('/reports/:userId/:startDate/:endDate', async (req, res) => {
+  const { userId, startDate, endDate } = req.params; // Extract from path parameters
+
+  // Validate the path parameters
+  if (!userId || !startDate || !endDate) {
+    return res.status(400).json({ error: 'All parameters are required' });
+  }
+
+  try {
+    const expenses = await Expense.getExpensesinTimePeriod(startDate,endDate,userId);
+    console.log("nnnn",expenses);
+
+    if (expenses.length === 0) {
+      return res.status(404).json({ error: 'No expenses found' });
+    }
+
+    // Total expense calculation
+    const totalExpense = expenses.reduce((total, exp) => total + exp.expense_amount, 0);
+
+    // Categorize expenses by expense head
+    const categorizedExpense = {};
+
+    expenses.forEach((exp) => {
+      const expenseHead = exp.expense_head; // Expense head or category
+      if (!categorizedExpense[expenseHead]) {
+        categorizedExpense[expenseHead] = [];
+      }
+      // Group the expenses under the relevant expense head
+      categorizedExpense[expenseHead].push(exp);
+    });
+
+    // Respond with the total expense, categorized expenses, and all expenses
+    res.status(200).json({
+      totalExpense,
+      categorizedExpense,
+      expenses,
+    });
+  } catch (error) {
+    console.error('Error generating reports:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

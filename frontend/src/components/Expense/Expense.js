@@ -7,7 +7,7 @@ import Navbar from '../navbar.js';
 const Expense = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const location = useLocation();
-  const userId = location.state?.userId; // Get the userId from location state
+  const userId = location.state?.userId; 
 
   const handleExpenseAdded = () => {
     setRefreshTrigger((prev) => prev + 1); // Trigger a refresh
@@ -15,10 +15,8 @@ const Expense = () => {
 
   return (
     <div>
-      <Navbar />
+      {userId && <Navbar userId={userId} />}
       <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-md shadow-md mt-5">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">Expense Tracker</h1>
-        {/* Pass userId to NewExpense */}
         <NewExpense onExpenseAdded={handleExpenseAdded} userId={userId} />
 
         <div className="mt-6">

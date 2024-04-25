@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Expense, {
         foreignKey: 'userId',
       });
-      User.hasMany(models.Income, {
-        foreignKey: 'userId',
-      });
     }
     static async getUserById(id) {
       return this.findByPk(id);

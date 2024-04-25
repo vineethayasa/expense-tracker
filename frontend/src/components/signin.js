@@ -39,7 +39,7 @@ const Signin = ({ onSigninSuccess }) => {
       setPassword('');
 
       const { userId } = response.data;
-      console.log("here",response.data);
+      console.log("here",userId);
 
       navigate('/expenses', {
         state: { userId },

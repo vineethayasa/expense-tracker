@@ -46,7 +46,7 @@ const ExpenseList = ({ refreshTrigger, userId}) => {
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md">
-      <h1 className="text-lg font-semibold text-gray-800 mb-4">Expense List</h1>
+      <h1 className="text-lg font-bold text-gray-800 mb-4">Expense List</h1>
       <table className="w-full border-collapse">
         <thead>
           <tr>
