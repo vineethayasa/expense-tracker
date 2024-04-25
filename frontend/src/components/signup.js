@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from './navbar';
 
 const Signup = () => {
   // Initial state for form fields
@@ -70,7 +71,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow-lg">
+    <div>
+      <Navbar />
+      <div className="max-w-md mx-auto p-6 bg-white border rounded-lg shadow-lg mt-16">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Signup</h2>
       {error && (
         <p className="text-red-600 mb-4">{error}</p>
@@ -130,6 +133,7 @@ const Signup = () => {
           Signup
         </button>
       </form>
+    </div>
     </div>
   );
 };
