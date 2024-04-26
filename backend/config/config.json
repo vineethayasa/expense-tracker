@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "postgres",
-    "password": "vineetha299",
+    "password": "postgres",
     "database": "expense-db",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "vineetha299",
+    "password": "postgres",
     "database": "expense-db-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
