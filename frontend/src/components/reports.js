@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './navbar';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -42,7 +42,7 @@ const Reports = () => {
 
   const fetchReports = async () => {
     if (userId && startDate && endDate) {
-      const endpoint = `http://localhost:1854/reports/${userId}/${startDate}/${endDate}`;
+      const endpoint = `http://localhost:1800/reports/${userId}/${startDate}/${endDate}`;
       try {
         const response = await axios.get(endpoint);
         setReportData(response.data);

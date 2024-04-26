@@ -8,7 +8,7 @@ const ExpenseList = ({ refreshTrigger, userId}) => {
 
   const fetchExpenses = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:1854/expenses/${userId}`);
+      const response = await axios.get(`http://localhost:1800/expenses/${userId}`);
       setExpenses(response.data);
     } catch (err) {
       setError("Error fetching expenses");
@@ -24,7 +24,7 @@ const ExpenseList = ({ refreshTrigger, userId}) => {
   // Handle delete expense
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:1854/expenses/${id}`);
+      await axios.delete(`http://localhost:1800/expenses/${id}`);
       fetchExpenses();
     } catch (err) {
       console.error("Error deleting expense:", err);

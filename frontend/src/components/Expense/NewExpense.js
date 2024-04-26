@@ -21,7 +21,7 @@ const NewExpense = ({ onExpenseAdded, userId}) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:1854/expenses",
+        "http://localhost:1800/expenses",
         newExpense
       );
 
