@@ -43,7 +43,7 @@ const Signup = () => {
 
     try {
       // Send data to the server's signup endpoint
-      const response = await axios.post("http://localhost:1800/signup", {
+      const response = await axios.post("https://expense-tracker-rp50.onrender.com/signup", {
         firstname: formData.firstName,
         lastname: formData.lastName,
         email: formData.email,
