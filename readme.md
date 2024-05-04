@@ -62,9 +62,13 @@ To run the application locally, you need to set up both the backend and frontend
 
 ## Usage
 1. **Sign Up**: Create a new account to start using the application.
+![signup](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/signup.png)
 2. **Sign In**: Use your credentials to sign in.
+![signin](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/signin.png)
 3. **Add Expenses**: Once signed in, navigate to the "Expenses" page to add new expenses, including the expense category, amount, and date.
+![expense](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/expenes.png)
 4. **Generate Reports**: Visit the "Reports" page to generate a report by selecting a start and end date. You will see a bar chart representing the total expense amounts for each category within the specified date range.
+![reports](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/reports.png)
 
 ## Endpoints
 Below are the main endpoints used in this project.
