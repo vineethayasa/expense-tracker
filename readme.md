@@ -69,16 +69,3 @@ To run the application locally, you need to set up both the backend and frontend
 ![expense](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/expenes.png)
 4. **Generate Reports**: Visit the "Reports" page to generate a report by selecting a start and end date. You will see a bar chart representing the total expense amounts for each category within the specified date range.
 ![reports](https://raw.githubusercontent.com/vineethayasa/expense-tracker/main/public/reports.png)
-
-## Endpoints
-Below are the main endpoints used in this project.
-
-### Backend Endpoints
-- **User Authentication**:
-  - POST `/signup`: User sign-up.
-  - POST `/signin`: User sign-in.
-- **Expense Management**:
-  - POST `/expenses`: Add new expense.
-  - GET `/expenses/:userId`: Get all expenses for a user.
-- **Expense Reports**:
-  - GET `/reports/:userId/:startDate/:endDate`: Get expense reports for a user within a specified date range.
